@@ -6,38 +6,56 @@ import streamlit as st
 import pandas as pd
 import numpy as np 
 import matplotlib.pyplot as plt
+import sklearn
 
-st.write("Hello World!")
+st.write("Bienvenue")
 
-# data = np.random.normal(size=1000)
-# data = pd.DataFrame(data, columns=["Dist_norm"])
-# st.write(data.head())
-# # or st.dataframe(data.head()) pour afficher un dataframe
+import pickle
 
-# #creation d'un graphique avec matplotlib
+with open('mon_modele.pkl', 'rb') as fichier:
+    modele_charge = pickle.load(fichier)
 
-# #plt.hist(data.Dist_norm)
-# #plt.show #rien ne s'affiche car streamlit a des fonctions dédiés qui fonctionnent avec des librairies comme mtlp seaborn etc
-# #st.pyplot()
-# #s'affiche mais y'a un warning car besoin d'un argument qui represente la figure en question et propose un code donc on le met
+# Fonction pour transformer les entrées en format compatible avec le modèle
+def prepare_inputs(age, children, sex, bmi, smoker, region, bmi_smoker_interaction):
 
-# fig, ax = plt.subplots()
-# ax.hist(data.Dist_norm)
-# st.pyplot(fig)
+    if smoker == 'Oui':
+        smoker = 1
+    else:
+        smoker = 0
+    
+    if sex == 'female':
+        sex = 1
+    else:
+        sex = 0
 
-# Créer un formulaire
+    new_data = pd.DataFrame({
+        'age': [age],  
+        'sex': [sex],  
+        'bmi': [bmi],
+        'children': [children],
+        'smoker': [smoker],  
+        'region': [region],
+        'bmi_smoker_interaction': [bmi_smoker_interaction]
+    })
+
+    return new_data
+
+# form
 with st.form(key='mon_formulaire'):
     age = st.number_input(label="Entrez votre age", min_value=0, max_value=100)
     children = st.number_input(label="Nombre d'enfants", min_value=0, max_value=100)
-    genre = st.selectbox(label='Choisissez votre genre, femme = 1 male = 0', options=[1, 0])
-    bmi = st.number_input(label="Entrez votre age", min_value=0, max_value=100)
-    
-    # Bouton de soumission
+    sex = st.selectbox(label='Genre', options=['female', 'male'])
+    bmi = st.number_input(label="Entrez votre indice de masse corporelle (IMC)", min_value=0, max_value=100)
+    smoker = st.selectbox(label='Etes-vous fumeur ?', options=['Oui', 'Non'])
+    region = st.selectbox(label='Région', options=['southeast', 'southwest','northeast', 'northwest'])
+  
     submit_button = st.form_submit_button(label='Soumettre')
 
-# Traitement après la soumission du formulaire
+# traitement apres soumission
 if submit_button:
-    st.write(f'Nom: {age}')
-    st.write(f'Âge: {children}')
-    st.write(f'Genre: {genre}')
-    st.write('Accepté:' + ('Oui' if accepte else 'Non'))
+    bmi_smoker_interaction = smoker * bmi
+
+    inputs = prepare_inputs(age, children, sex, bmi, smoker, region, bmi_smoker_interaction)
+
+    prediction = modele_charge.predict(inputs)
+    st.write(f"Prédiction : {prediction[0]}")
