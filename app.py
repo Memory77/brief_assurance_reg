@@ -23,7 +23,7 @@ if page == "Home":
     st.image('courtier-assurance.jpg', width=500)
 
 elif page == "Estimation":
-    with open('modele_elasticnet.pkl', 'rb') as fichier:
+    with open('modele_lasso.pkl', 'rb') as fichier:
         modele_charge = pickle.load(fichier)
 
     # Fonction pour transformer les entrées en format compatible avec le modèle
