@@ -15,7 +15,7 @@ def log_transform(x):
 
 
 logo = st.sidebar.image('assuraimant.png', width=250)
-page = st.sidebar.radio("Navigation", ["Home", "Estimation"])
+page = st.sidebar.radio("Navigation", ["Home", "Informations","Estimation"])
 
 if page == "Home":
     st.write("<h1>Bienvenue sur Assur'Aimant</h1>", unsafe_allow_html=True)
@@ -23,22 +23,11 @@ if page == "Home":
     st.image('courtier-assurance.jpg', width=500)
 
 elif page == "Estimation":
-    with open('modele_lasso.pkl', 'rb') as fichier:
+    with open('best_model.pkl', 'rb') as fichier:
         modele_charge = pickle.load(fichier)
 
-    # Fonction pour transformer les entrées en format compatible avec le modèle
-    def prepare_inputs(age, children, sex, bmi, smoker, region, bmi_smoker_interaction):
-
-        if sex == 'female':
-            sex = 1
-        else:
-            sex = 0
-
-        if smoker == 'Oui':
-            smoker = 1
-        else:
-            smoker = 0
-        bmi_smoker_interaction = smoker * bmi
+    # fonction pour transformer les entrées en format compatible avec le modèle
+    def prepare_inputs(age, children, sex, bmi, smoker, region):
         
         new_data = pd.DataFrame({
             'age': [age],  
@@ -47,7 +36,6 @@ elif page == "Estimation":
             'children': [children],
             'smoker': [smoker],  
             'region': [region],
-            'bmi_smoker_interaction': [bmi_smoker_interaction]
         })
 
         return new_data
@@ -66,9 +54,8 @@ elif page == "Estimation":
 
     # traitement apres soumission
     if submit_button:
-        bmi_smoker_interaction = 0
         bmi = poids/(taille*taille)
-        inputs = prepare_inputs(age, children, sex, bmi, smoker, region, bmi_smoker_interaction)
+        inputs = prepare_inputs(age, children, sex, bmi, smoker, region)
         prediction = modele_charge.predict(inputs)
         st.write(f"Prédiction : {prediction[0]}")
 
