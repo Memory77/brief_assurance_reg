@@ -47,7 +47,7 @@ elif page == "Estimation":
         sex = st.selectbox(label='Genre', options=['female', 'male'])
         poids = st.number_input(label="Indiquez votre poids", min_value=0.0, max_value=100.0, format="%.2f")
         taille = st.number_input(label="Indiquez votre taille", min_value=0.0, max_value=100.0, format="%.2f")
-        smoker = st.selectbox(label='Etes-vous fumeur ?', options=['Oui', 'Non'])
+        smoker = st.selectbox(label='Etes-vous fumeur ?', options=['yes', 'no'])
         region = st.selectbox(label='Région', options=['southeast', 'southwest','northeast', 'northwest'])
     
         submit_button = st.form_submit_button(label='Soumettre')
