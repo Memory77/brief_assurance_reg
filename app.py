@@ -10,8 +10,8 @@ from feature_engine.discretisation import ArbitraryDiscretiser
 import sklearn
 import pickle
 
-# def log_transform(x):
-#     return np.log(x + 1)
+def log_transform(x):
+    return np.log(x + 1)
 
 def custom_bmi_discretizer(df):
     custom_bins = [0, 30, 100, float('inf')]
@@ -39,10 +39,10 @@ elif page == "Informations":
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
 
     # tracage des points pour les fumeurs en rouge 
-    ax1.scatter(fumeurs['age'], fumeurs['charges'], color='red', label='Fumeurs')
+    ax1.scatter(fumeurs['age'], fumeurs['charges'], color='red', label='Fumeurs', alpha=0.3)
 
     # tracage des points pour les non-fumeurs en bleu
-    ax1.scatter(non_fumeurs['age'], non_fumeurs['charges'], color='blue', label='Non-Fumeurs')
+    ax1.scatter(non_fumeurs['age'], non_fumeurs['charges'], color='blue', label='Non-Fumeurs', alpha=0.3)
 
     ax1.set_xlabel('Age')
     ax1.set_ylabel('Insurance Charges')
@@ -50,9 +50,9 @@ elif page == "Informations":
     ax1.set_title("Charges d'assurance pour fumeurs et non-fumeurs en fonction de l'âge")
 
      # tracage des points pour les fumeurs en rouge 
-    ax2.scatter(fumeurs['bmi'], fumeurs['charges'], color='red', label='Fumeurs')
+    ax2.scatter(fumeurs['bmi'], fumeurs['charges'], color='red', label='Fumeurs', alpha=0.3)
     # tracage des points pour les non-fumeurs en bleu
-    ax2.scatter(non_fumeurs['bmi'], non_fumeurs['charges'], color='blue', label='Non-Fumeurs')
+    ax2.scatter(non_fumeurs['bmi'], non_fumeurs['charges'], color='blue', label='Non-Fumeurs', alpha=0.3)
 
     ax2.set_xlabel('BMI')
     ax2.set_ylabel('Insurance Charges')
