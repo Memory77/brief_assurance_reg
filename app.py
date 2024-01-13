@@ -25,13 +25,13 @@ page = st.sidebar.radio("Navigation", ["Home", "Informations","Estimation"])
 
 if page == "Home":
     st.write("<h1>Bienvenue sur Assur'Aimant</h1>", unsafe_allow_html=True)
-    st.markdown('📚 Conseil Data & IA Solutions')
+    st.markdown('<h2>📚 Conseil Data & IA Solutions</h2>', unsafe_allow_html=True)
     st.write("Notre étude de cas avec Assur'Aimant illustre comment nous appliquons notre expertise pour analyser les données des souscripteurs et estimer précisément les primes d'assurance, en remplaçant les méthodes traditionnelles longues et coûteuses par une approche basée sur les données.")
     st.image('courtier-assurance.jpg', width=500)
 
 
 elif page == "Informations":
-    st.write("Aperçu des Facteurs Clés Influant sur l'Estimation des Primes d'Assurance")
+    st.write("<h2>Aperçu des Facteurs Clés Influant sur l'Estimation des Primes d'Assurance</h2>", unsafe_allow_html=True)
     df = pd.read_csv('dataset.csv')
     fumeurs = df[df['smoker'] == 1]
     non_fumeurs = df[df['smoker'] == 0]
@@ -106,7 +106,7 @@ elif page == "Estimation":
         bmi = poids/(taille*taille)
         inputs = prepare_inputs(age, children, sex, bmi, smoker, region)
         prediction = modele_charge.predict(inputs)
-        st.write(f"Prédiction : {prediction[0]}")
+        st.write(f"Prédiction : {round(prediction[0],2)}")
 
 
 
@@ -138,11 +138,11 @@ h1 {
 }
 h2 {
     background-color: white;
-    color: black;
+    color: rgb(125, 193, 241);
     padding: 20px;
     border-radius: 10px;
     text-align: justify;
-    font-size: 18px;
+    font-size: 19px;
     border-color: black;
 }
 
