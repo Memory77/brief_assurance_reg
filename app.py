@@ -10,6 +10,7 @@ from feature_engine.discretisation import ArbitraryDiscretiser
 import sklearn
 import pickle
 
+#fonctions
 def log_transform(x):
     return np.log(x + 1)
 
@@ -19,19 +20,21 @@ def custom_bmi_discretizer(df):
     df[['bmi']] = bmi_discretizer.fit_transform(df[['bmi']])
     return df
 
-
-logo = st.sidebar.image('assuraimant.png', width=250)
+#app
+logo = st.sidebar.image('img/assuraimant.png', width=250)
 page = st.sidebar.radio("Navigation", ["Home", "Informations","Estimation"])
 
 if page == "Home":
     st.write("<h1>Bienvenue sur Assur'Aimant</h1>", unsafe_allow_html=True)
     st.markdown('<h2>📚 Conseil Data & IA Solutions</h2>', unsafe_allow_html=True)
     st.write("Notre étude de cas avec Assur'Aimant illustre comment nous appliquons notre expertise pour analyser les données des souscripteurs et estimer précisément les primes d'assurance, en remplaçant les méthodes traditionnelles longues et coûteuses par une approche basée sur les données.")
-    st.image('courtier-assurance.jpg', width=500)
+    st.image('img/courtier-assurance.jpg', width=500)
 
 
 elif page == "Informations":
     st.write("<h2>Aperçu des Facteurs Clés Influant sur l'Estimation des Primes d'Assurance</h2>", unsafe_allow_html=True)
+    
+    #affichage des plots
     df = pd.read_csv('dataset.csv')
     fumeurs = df[df['smoker'] == 1]
     non_fumeurs = df[df['smoker'] == 0]
@@ -60,14 +63,6 @@ elif page == "Informations":
     ax2.set_title("Charges d'assurance pour fumeurs et non-fumeurs en fonction de l'âge")
     st.pyplot(fig)
     st.write("Notre approche repose sur une combinaison d'analyses de données pointues et d'intelligence artificielle avancée, permettant de déterminer avec précision les primes d'assurance adaptées à chaque individu. En se basant sur des critères essentiels tels que l'âge, le statut de fumeur, l'indice de masse corporelle et d'autres facteurs démographiques, nous fournissons une estimation détaillée qui reflète non seulement le risque individuel, mais aussi une compréhension nuancée du marché de l'assurance. Plongez dans les détails de notre méthode innovante pour voir comment nous transformons les données brutes en insights stratégiques.")
-
-
-
-
-
-
-
-
 
 
 
@@ -137,13 +132,13 @@ h1 {
     color: rgb(125, 193, 241);
 }
 h2 {
-    background-color: white;
     color: rgb(125, 193, 241);
     padding: 20px;
     border-radius: 10px;
     text-align: justify;
     font-size: 19px;
     border-color: black;
+    
 }
 
 .test {
