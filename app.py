@@ -20,14 +20,14 @@ def custom_bmi_discretizer(df):
     return df
 
 
-logo = st.sidebar.image('assuraimant.png', width=250)
+logo = st.sidebar.image('img/assuraimant.png', width=250)
 page = st.sidebar.radio("Navigation", ["Home", "Informations","Estimation"])
 
 if page == "Home":
     st.write("<h1>Bienvenue sur Assur'Aimant</h1>", unsafe_allow_html=True)
     st.markdown('<h2>📚 Conseil Data & IA Solutions</h2>', unsafe_allow_html=True)
     st.write("Notre étude de cas avec Assur'Aimant illustre comment nous appliquons notre expertise pour analyser les données des souscripteurs et estimer précisément les primes d'assurance, en remplaçant les méthodes traditionnelles longues et coûteuses par une approche basée sur les données.")
-    st.image('courtier-assurance.jpg', width=500)
+    st.image('img/courtier-assurance.jpg', width=500)
 
 
 elif page == "Informations":
